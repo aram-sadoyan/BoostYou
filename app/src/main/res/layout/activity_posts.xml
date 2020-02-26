@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:fresco="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@android:color/white"
+	android:animateLayoutChanges="true">
+
+
+	<LinearLayout
+		android:id="@+id/appBarContainer"
+		android:layout_width="match_parent"
+		android:layout_height="?attr/actionBarSize"
+		android:background="@color/purple"
+		android:gravity="right"
+		android:orientation="horizontal"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<TextView
+			android:id="@+id/usernameTxtView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginRight="82dp"
+			android:text="aram.sadoy"
+			android:textColor="@android:color/white"
+			android:textSize="20sp" />
+
+		<TextView
+			android:id="@+id/coinCountTxtView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginEnd="12dp"
+			android:layout_marginRight="12dp"
+			android:text="-1"
+			android:textColor="@android:color/white"
+			android:textSize="22sp" />
+
+		<ImageView
+			android:id="@+id/ic_coins_top"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:layout_gravity="center"
+			android:layout_marginEnd="26dp"
+			android:layout_marginRight="26dp"
+			android:src="@drawable/ic_coins" />
+
+		<ImageView
+			android:id="@+id/addCoinTxtView"
+			android:layout_width="32dp"
+			android:layout_height="32dp"
+			android:layout_gravity="center"
+			android:layout_marginTop="4dp"
+			android:layout_marginEnd="26dp"
+			android:layout_marginRight="26dp"
+			android:background="@drawable/ic_wallet"
+			android:includeFontPadding="false"
+			android:textAlignment="center" />
+
+
+	</LinearLayout>
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/horizontalRecView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toTopOf="@id/shadowView"
+		app:layout_constraintTop_toBottomOf="@id/appBarContainer" />
+
+	<View
+		android:id="@+id/underViewTransparent"
+		android:layout_width="100dp"
+		android:layout_height="0dp"
+		android:background="@android:color/white"
+		app:layout_constraintBottom_toTopOf="@id/shadowView"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/appBarContainer" />
+
+	<com.facebook.drawee.view.SimpleDraweeView
+		android:id="@+id/avatarImgView"
+		android:layout_width="74dp"
+		android:layout_height="74dp"
+		app:layout_constraintBottom_toTopOf="@id/shadowView"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/appBarContainer"
+		fresco:roundAsCircle="true" />
+
+	<ProgressBar
+		android:id="@+id/avatarProgressBar"
+		android:progressDrawable="@drawable/primary_progress_drawable"
+		style="?android:attr/progressBarStyleHorizontal"
+		android:layout_marginTop="8dp"
+		android:layout_marginStart="6dp"
+		android:layout_marginLeft="6dp"
+		android:layout_marginEnd="6dp"
+		android:layout_marginRight="6dp"
+		android:layout_width="0dp"
+		android:layout_height="2dp"
+		android:progress="99"
+		android:visibility="gone"
+		app:layout_constraintTop_toBottomOf="@id/avatarImgView"
+		app:layout_constraintStart_toStartOf="@id/avatarImgView"
+		app:layout_constraintEnd_toEndOf="@id/avatarImgView"
+		/>
+
+	<View
+		android:id="@+id/dotView"
+		android:layout_width="8dp"
+		android:layout_height="8dp"
+		android:layout_marginTop="4dp"
+		android:background="@drawable/selector_avatar_dot"
+		app:layout_constraintStart_toEndOf="@id/avatarImgView"
+		app:layout_constraintTop_toBottomOf="@id/avatarImgView" />
+
+	<View
+		android:id="@+id/shadowView"
+		android:layout_width="match_parent"
+		android:layout_height="4dp"
+		android:background="@drawable/shadow"
+		app:layout_constraintTop_toBottomOf="@id/horizontalRecView" />
+
+	<!--	<LinearLayout-->
+	<!--		android:id="@+id/bannerContainer"-->
+	<!--		android:layout_width="match_parent"-->
+	<!--		android:layout_height="wrap_content"-->
+	<!--		android:orientation="vertical"-->
+	<!--		android:padding="4dp"-->
+	<!--		app:layout_constraintBottom_toTopOf="@id/scrollView"-->
+	<!--		app:layout_constraintTop_toBottomOf="@id/shadowView">-->
+
+	<!--		<com.facebook.drawee.view.SimpleDraweeView-->
+	<!--			android:id="@+id/bannerImgView"-->
+	<!--			android:layout_width="match_parent"-->
+	<!--			android:layout_height="wrap_content"-->
+	<!--			android:scaleType="centerCrop"-->
+	<!--			fresco:viewAspectRatio="2.2" />-->
+
+	<!--		<View-->
+	<!--			android:id="@+id/shadowView2"-->
+	<!--			android:layout_width="match_parent"-->
+	<!--			android:layout_height="4dp"-->
+	<!--			android:background="@drawable/shadow"-->
+	<!--			app:layout_constraintTop_toBottomOf="@id/horizontalRecView" />-->
+
+	<!--	</LinearLayout>-->
+
+
+	<ScrollView
+		android:id="@+id/scrollView"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_marginBottom="4dp"
+		app:layout_constraintBottom_toTopOf="@id/addContainer"
+		app:layout_constraintTop_toBottomOf="@id/shadowView">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+			<LinearLayout
+				android:id="@+id/bannerContainer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:padding="4dp"
+				app:layout_constraintBottom_toTopOf="@id/scrollView"
+				app:layout_constraintTop_toBottomOf="@id/shadowView">
+
+				<com.facebook.drawee.view.SimpleDraweeView
+					android:id="@+id/bannerImgView"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:scaleType="centerCrop"
+					fresco:viewAspectRatio="2.2" />
+
+				<View
+					android:id="@+id/shadowView2"
+					android:layout_width="match_parent"
+					android:layout_height="4dp"
+					android:background="@drawable/shadow"
+					app:layout_constraintTop_toBottomOf="@id/horizontalRecView" />
+
+			</LinearLayout>
+
+
+			<LinearLayout
+				android:id="@+id/offerContainer"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical" />
+
+			<com.facebook.drawee.view.SimpleDraweeView
+				android:id="@+id/bottomImgView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:scaleType="centerCrop"
+				android:padding="36dp"
+				fresco:viewAspectRatio="2.2"/>
+
+			<TextView
+				android:id="@+id/termsConditionTxtView"
+				android:layout_margin="16dp"
+				android:text="@string/messageWithLink"
+				android:layout_width="match_parent"
+				android:layout_gravity="center"
+				android:gravity="center"
+				android:layout_height="wrap_content"/>
+
+		</LinearLayout>
+
+
+	</ScrollView>
+
+
+	<!--	<com.google.android.gms.ads.AdView-->
+	<!--		xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+	<!--		android:id="@+id/adView"-->
+	<!--		app:layout_constraintBottom_toBottomOf="parent"-->
+	<!--		app:layout_constraintStart_toStartOf="parent"-->
+	<!--		app:layout_constraintEnd_toEndOf="parent"-->
+	<!--		android:layout_width="wrap_content"-->
+	<!--		android:layout_height="wrap_content"-->
+	<!--		android:layout_centerHorizontal="true"-->
+	<!--		android:layout_alignParentBottom="true"-->
+	<!--		ads:adSize="B"-->
+	<!--		ads:adUnitId="ca-app-pub-3940256099942544/6300978111">-->
+	<!--	</com.google.android.gms.ads.AdView>-->
+
+	<LinearLayout
+		android:id="@+id/addContainer"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/colorPrimary"
+		android:orientation="horizontal"
+		app:layout_constraintBottom_toBottomOf="parent" />
+
+
+	<com.facebook.drawee.view.SimpleDraweeView
+		android:id="@+id/icDoneView"
+		android:visibility="gone"
+		android:layout_width="180dp"
+		android:layout_height="180dp"
+		android:background="@drawable/ic_done"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
