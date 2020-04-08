@@ -9,7 +9,6 @@
 	</style>
 
 
-
 	<style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
 		<item name="android:windowNoTitle">true</item>
 		<item name="colorPrimary">@color/purple</item>
@@ -17,7 +16,42 @@
 		<item name="colorAccent">@color/purple</item>
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowFullscreen">true</item>
+		<item name="android:splitMotionEvents">false</item>
 		<item name="android:windowBackground">@android:color/darker_gray</item>
 		<item name="android:windowContentOverlay">@null</item>
+	</style>
+
+	<style name="Theme.AppCompat.Light.NoActionBar.FullScreen.SplashScreen">
+		<item name="android:windowFullscreen">true</item>
+		<item name="android:splitMotionEvents">false</item>
+		<item name="android:background">@drawable/splash_screen</item>
+		<item name="android:gravity">center</item>
+		<item name="android:windowAnimationStyle">@style/WithoutAnimationTransition</item>
+	</style>
+
+	<style name="InstaAppTheme.Light.Dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+		<!--important!!! do not remove or edit windowActionBar and windowNoTitle attrs-->
+		<!--this prevents from appearing native actionbar, actionbar is still available via getSupportActionBar() method-->
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowActionBar">false</item>
+		<item name="android:windowContentOverlay">@null</item>
+
+		<item name="colorAccent">@color/colorAccent</item>
+
+		<!--		<item name="android:windowTitleStyle">@style/DialogWindowTitle.Picsart</item>-->
+
+	</style>
+
+
+	<style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
+		<item name="colorAccent">@color/purple</item>
+		<item name="colorPrimary">@color/purple</item>
+		<item name="android:progress">@color/purple</item>
+		<item name="android:colorBackground">@color/purple</item>
+	</style>
+
+	<style name="WithoutAnimationTransition">
+		<item name="android:windowEnterAnimation">@anim/dialog_no_animation</item>
+		<item name="android:windowExitAnimation">@anim/dialog_no_animation</item>
 	</style>
 </resources>

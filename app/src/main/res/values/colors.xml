@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="colorPrimary">#008577</color>
-	<color name="colorPrimaryDark">#00574B</color>
+	<color name="colorPrimary">@color/purple</color>
+	<color name="colorPrimaryDark">@color/purple</color>
 	<color name="colorAccent">#D81B60</color>
 
-
+	<color name="gray_tr_40_90">#40909090</color>
+	<color name="gray_tr_50_90">#20909060</color>
+	<color name="gray_16">#161616</color>
 	<color name="purple">#994ff3</color>
+	<color name="purple_light">#e6d0ff</color>
+	<color name="white_cream">#FFF2E6</color>
 
 </resources>

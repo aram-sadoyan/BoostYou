@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+	<item name="is_profile_mode" type="id" />
+	<item name="price_coin" type="id" />
+</resources>

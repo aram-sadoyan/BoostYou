@@ -11,7 +11,7 @@ public class InstaProfile implements Serializable {
 	private String loggingPageId;
 
 	@SerializedName("graphql")
-	private Graphql graphql;
+	private Graphql graphql = new Graphql();
 
 	public String getLoggingPageId() {
 		return loggingPageId;
@@ -21,9 +21,9 @@ public class InstaProfile implements Serializable {
 		this.loggingPageId = loggingPageId;
 	}
 
-	public class Graphql {
+	public class Graphql implements Serializable{
 		@SerializedName("user")
-		private User2 user;
+		private User2 user = new User2();
 
 		public User2 getUser() {
 			return user;
@@ -34,17 +34,45 @@ public class InstaProfile implements Serializable {
 		}
 	}
 
-	public class User2{
+
+	public String getId(){
+		return this.getGraphql().getUser().getId();
+	}
+
+	public String  getUserName(){
+		return this.getGraphql().getUser().getUserName();
+	}
+
+	public class User2 implements Serializable{
+		@SerializedName("id")
+		private String id = "";
 		@SerializedName("full_name")
 		private String fullName;
 		@SerializedName("profile_pic_url")
 		private String profilePictureUrl;
+		@SerializedName("username")
+		private String userName;
 
 		@SerializedName("edge_owner_to_timeline_media")
-		private EdgeOwnerToTimeLineMedia edgeOwnerToTimeLineMedia;
+		private EdgeOwnerToTimeLineMedia edgeOwnerToTimeLineMedia = new EdgeOwnerToTimeLineMedia();
+
+		@SerializedName("edge_followed_by")
+		private EdgeFollowedBy edgeFollowedBy = new EdgeFollowedBy();
+
+		public EdgeFollowedBy getEdgeFollowedBy() {
+			return edgeFollowedBy;
+		}
+
+		public String getId() {
+			return id;
+		}
 
 		public String getFullName() {
 			return fullName;
+		}
+
+		public String getUserName() {
+			return userName;
 		}
 
 		public void setFullName(String fullName) {
@@ -64,7 +92,7 @@ public class InstaProfile implements Serializable {
 		}
 	}
 
-	public class EdgeOwnerToTimeLineMedia{
+	public class EdgeOwnerToTimeLineMedia implements Serializable{
 		@SerializedName("count")
 		private int count;
 
@@ -80,7 +108,17 @@ public class InstaProfile implements Serializable {
 		}
 	}
 
-	public class Edges{
+	public class EdgeFollowedBy implements Serializable{
+		@SerializedName("count")
+		private int followCount;
+
+		public int getFollowCount() {
+			return followCount;
+		}
+
+	}
+
+	public class Edges implements Serializable{
 		@SerializedName("node")
 		private Node node;
 
@@ -90,7 +128,7 @@ public class InstaProfile implements Serializable {
 	}
 
 
-	public class Node{
+	public class Node implements Serializable{
 		@SerializedName("shortcode")
 		private String shortCode;
 
@@ -100,11 +138,18 @@ public class InstaProfile implements Serializable {
 		@SerializedName("is_video")
 		private boolean isVideo;
 
+		@SerializedName("thumbnail_src")
+		private String thumbnailUrl;
+
 		@SerializedName("edge_liked_by")
 		private EdgeLikedBy edgeLikedBy;
 
 		@SerializedName("edge_media_to_comment")
 		private EdgeMediaToComment edgeMediaToComment;
+
+		public String getThumbnailUrl() {
+			return thumbnailUrl;
+		}
 
 		public String getDisplayUrl() {
 			return displayUrl;
@@ -127,7 +172,7 @@ public class InstaProfile implements Serializable {
 		}
 	}
 
-	public class EdgeLikedBy{
+	public class EdgeLikedBy implements Serializable{
 		@SerializedName("count")
 		private int likeCount = -1;
 
@@ -135,7 +180,7 @@ public class InstaProfile implements Serializable {
 			return likeCount;
 		}
 	}
-	public class EdgeMediaToComment{
+	public class EdgeMediaToComment implements Serializable{
 		@SerializedName("count")
 		private int commentCount = -1;
 

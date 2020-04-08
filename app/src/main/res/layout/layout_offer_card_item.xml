@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:card_view="http://schemas.android.com/tools"
+	style="@style/CardView.Light"
+	android:foreground="?android:attr/selectableItemBackground"
+	android:clickable="true"
+	android:focusable="true"
+	card_view:cardCornerRadius="4dp"
+	android:layout_marginStart="8dp"
+	android:layout_marginEnd="8dp"
+	android:layout_marginBottom="4dp"
+	android:layout_marginTop="4dp">
+
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="48dp">
+
+		<TextView
+			android:id="@+id/offerTxtView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="10 likes"
+			android:textStyle="bold"
+			android:textSize="24sp"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			android:layout_marginStart="12dp"
+			android:layout_marginLeft="12dp" />
+
+		<ImageView
+			android:id="@+id/icLeftView"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			android:layout_marginEnd="32dp"
+			android:layout_marginRight="32dp"
+			android:layout_marginLeft="12dp"
+			android:layout_marginStart="12dp"
+			android:background="@drawable/ic_heart"
+			app:layout_constraintStart_toEndOf="@id/offerTxtView"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
+
+
+		<TextView
+			android:id="@+id/costCoinTxtView"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="20 coin"
+			app:layout_constraintEnd_toStartOf="@id/bottomIcCoin"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			android:layout_marginEnd="12dp"
+			android:layout_marginRight="12dp" />
+
+		<ImageView
+			android:id="@+id/bottomIcCoin"
+			android:layout_width="24dp"
+			android:layout_height="24dp"
+			android:layout_marginEnd="32dp"
+			android:layout_marginRight="32dp"
+			android:src="@drawable/ic_coins"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintTop_toTopOf="parent"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

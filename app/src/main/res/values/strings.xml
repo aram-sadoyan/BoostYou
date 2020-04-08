@@ -1,3 +1,16 @@
 <resources>
 	<string name="app_name">BoostYou</string>
+
+
+	<string name="lorem">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula sem a malesuada rhoncus. Pellentesque ut dolor a dui porttitor porta lacinia non libero. Nunc volutpat arcu quis quam convallis molestie. Etiam ac tristique sem, id commodo justo. Phasellus congue tincidunt lectus, at dignissim ligula maximus eu. Quisque interdum nunc eget tellus bibendum suscipit. Phasellus feugiat ultricies posuere. Nullam porta accumsan velit, ut rutrum massa fermentum eu. Nunc ac bibendum nunc. Mauris eu ultricies ipsum. Ut id dolor dui. Pellentesque dictum dui vel tempus maximus. Vivamus non nisi quis libero sceleriesque ut dolor a dui porttitor porta lacinia non libero. Nunc volutpat arcu quis quam convallis molestie. sque pesque ut dolor a dui porttitor porta lacinia non libero. Nunc volutpat arcu quis quam convallis molestie. retiumesque ut dolor a dui porttitor porta lacinia non libero. Nunc volutpat arcu quis quam convallis molestie. . Ut eu tristique justo. Sed pellentesque placerat quam, ut ultricies turpis feugiat a. Aliquam a volutpat risus.
+    </string>
+
+	<string name="messageWithLink"><a href="https://www.qicharge.am/instalikes/privacy/privacy-policy-template-master/">By using BoostYou app, You agree to our Privacy Statement.</a></string>
+
+
+	<string name="enter_username">Enter Your Instagram @username</string>
+	<string name="admob_app_id">ca-app-pub-6630049462645854~4916977428</string>
+
+
 </resources>

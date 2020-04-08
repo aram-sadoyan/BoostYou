@@ -15,18 +15,28 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-		<activity android:name=".activity.PostsActivity"></activity>
-		<activity android:name=".activity.SplashActivity">
+		<activity android:name=".activity.PreSplashActivity"
+			android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen.SplashScreen">
+
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-
+				<action android:name="android.intent.action.VIEW"/>
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+
+		</activity>
+		<activity
+			android:name=".activity.PostsActivity"
+			android:screenOrientation="locked"/>
+		<activity
+			android:name=".activity.SplashActivity"
+			android:hardwareAccelerated="true"
+			android:screenOrientation="locked">
 		</activity>
 
 		<meta-data
 			android:name="com.google.android.gms.ads.APPLICATION_ID"
-			android:value="ca-app-pub-3940256099942544~3347511713" />
+			android:value="ca-app-pub-6630049462645854~4916977428" />
 	</application>
 
 </manifest>

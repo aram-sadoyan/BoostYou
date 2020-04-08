@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:fresco="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@android:color/white"
-	android:animateLayoutChanges="true">
+	android:background="@color/white_cream"
+	android:animateLayoutChanges="true"
+	>
 
 
-	<LinearLayout
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:id="@+id/appBarContainer"
 		android:layout_width="match_parent"
 		android:layout_height="?attr/actionBarSize"
@@ -17,15 +20,33 @@
 		android:orientation="horizontal"
 		app:layout_constraintTop_toTopOf="parent">
 
+		<com.facebook.drawee.view.SimpleDraweeView
+			android:id="@+id/logOutIcView"
+			android:layout_width="28dp"
+			android:layout_height="28dp"
+			android:layout_gravity="center"
+			android:layout_marginStart="18dp"
+			android:layout_marginLeft="18dp"
+
+			android:background="@drawable/ic_log_out"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+
 		<TextView
 			android:id="@+id/usernameTxtView"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
-			android:layout_marginRight="82dp"
-			android:text="aram.sadoy"
+
 			android:textColor="@android:color/white"
-			android:textSize="20sp" />
+			android:layout_marginStart="18dp"
+			android:layout_marginLeft="18dp"
+			android:textSize="16sp"
+			android:text="aramsadoy"
+			app:layout_constraintStart_toEndOf="@id/logOutIcView"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"/>
 
 		<TextView
 			android:id="@+id/coinCountTxtView"
@@ -36,7 +57,10 @@
 			android:layout_marginRight="12dp"
 			android:text="-1"
 			android:textColor="@android:color/white"
-			android:textSize="22sp" />
+			android:textSize="22sp"
+			app:layout_constraintEnd_toStartOf="@id/ic_coins_top"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"/>
 
 		<ImageView
 			android:id="@+id/ic_coins_top"
@@ -45,7 +69,10 @@
 			android:layout_gravity="center"
 			android:layout_marginEnd="26dp"
 			android:layout_marginRight="26dp"
-			android:src="@drawable/ic_coins" />
+			android:src="@drawable/ic_coins"
+			app:layout_constraintEnd_toStartOf="@id/addCoinTxtView"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"/>
 
 		<ImageView
 			android:id="@+id/addCoinTxtView"
@@ -57,10 +84,26 @@
 			android:layout_marginRight="26dp"
 			android:background="@drawable/ic_wallet"
 			android:includeFontPadding="false"
-			android:textAlignment="center" />
+			android:textAlignment="center"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-	</LinearLayout>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<TextView
+		android:id="@+id/noPostText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="You have No Posts"
+		android:textSize="18dp"
+		android:visibility="visible"
+		android:textColor="@color/purple"
+		app:layout_constraintBottom_toTopOf="@id/shadowView"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/avatarImgView"
+		app:layout_constraintTop_toBottomOf="@id/appBarContainer" />
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/horizontalRecView"
@@ -73,10 +116,37 @@
 		android:id="@+id/underViewTransparent"
 		android:layout_width="100dp"
 		android:layout_height="0dp"
-		android:background="@android:color/white"
+		android:background="@color/white_cream"
 		app:layout_constraintBottom_toTopOf="@id/shadowView"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/appBarContainer" />
+
+	<com.facebook.drawee.view.SimpleDraweeView
+		android:id="@+id/followIc"
+		android:layout_width="14dp"
+		android:layout_height="14dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginLeft="8dp"
+		android:layout_marginBottom="8dp"
+		app:layout_constraintEnd_toStartOf="@id/followCount"
+		android:background="@drawable/ic_user"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintBottom_toTopOf="@id/avatarImgView"
+		app:layout_constraintHorizontal_chainStyle="packed"/>
+
+	<TextView
+		android:id="@+id/followCount"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="10sp"
+		android:layout_marginBottom="2dp"
+		android:layout_marginStart="4dp"
+		android:layout_marginLeft="4dp"
+		android:textColor="@android:color/black"
+		app:layout_constraintEnd_toEndOf="@id/avatarImgView"
+		app:layout_constraintTop_toTopOf="@id/followIc"
+		app:layout_constraintStart_toEndOf="@id/followIc"
+		app:layout_constraintBottom_toBottomOf="@id/followIc"/>
 
 	<com.facebook.drawee.view.SimpleDraweeView
 		android:id="@+id/avatarImgView"
@@ -102,8 +172,7 @@
 		android:visibility="gone"
 		app:layout_constraintTop_toBottomOf="@id/avatarImgView"
 		app:layout_constraintStart_toStartOf="@id/avatarImgView"
-		app:layout_constraintEnd_toEndOf="@id/avatarImgView"
-		/>
+		app:layout_constraintEnd_toEndOf="@id/avatarImgView" />
 
 	<View
 		android:id="@+id/dotView"
@@ -120,31 +189,6 @@
 		android:layout_height="4dp"
 		android:background="@drawable/shadow"
 		app:layout_constraintTop_toBottomOf="@id/horizontalRecView" />
-
-	<!--	<LinearLayout-->
-	<!--		android:id="@+id/bannerContainer"-->
-	<!--		android:layout_width="match_parent"-->
-	<!--		android:layout_height="wrap_content"-->
-	<!--		android:orientation="vertical"-->
-	<!--		android:padding="4dp"-->
-	<!--		app:layout_constraintBottom_toTopOf="@id/scrollView"-->
-	<!--		app:layout_constraintTop_toBottomOf="@id/shadowView">-->
-
-	<!--		<com.facebook.drawee.view.SimpleDraweeView-->
-	<!--			android:id="@+id/bannerImgView"-->
-	<!--			android:layout_width="match_parent"-->
-	<!--			android:layout_height="wrap_content"-->
-	<!--			android:scaleType="centerCrop"-->
-	<!--			fresco:viewAspectRatio="2.2" />-->
-
-	<!--		<View-->
-	<!--			android:id="@+id/shadowView2"-->
-	<!--			android:layout_width="match_parent"-->
-	<!--			android:layout_height="4dp"-->
-	<!--			android:background="@drawable/shadow"-->
-	<!--			app:layout_constraintTop_toBottomOf="@id/horizontalRecView" />-->
-
-	<!--	</LinearLayout>-->
 
 
 	<ScrollView
