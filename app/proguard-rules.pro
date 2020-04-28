@@ -45,6 +45,9 @@
 -keep class androidx.preference.internal.* { *; }
 -keep class androidx.recyclerview.widget.* { *; }
 -keep public class * extends android.preference.Preference
+-keep public class com.picsart.studio.photocommon.util.AppPreferenceManager
+
+-dontwarn org.json.JSONObject
 
 -keep public class com.socialin.android.lib.AmazonPurchaseActivity
 -keep public class com.socialin.android_samsung_billing_lib.SamsungPurchaseActivity

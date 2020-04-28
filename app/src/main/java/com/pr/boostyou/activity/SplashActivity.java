@@ -432,6 +432,10 @@ public class SplashActivity extends AppCompatActivity {
 
 	private void insertNewUserToBackend(InstaProfile instagramUser) {
 		String userId = instagramUser.getId();
+
+		String userName = instagramUser.getGraphql().getUser().getUserName();
+		insertInstaUserNameWithIdToBackend(userId,userName);
+
 		RestClient.getInstance(getApplicationContext()).getInstaApiService().insertUserToBakend2(userId, TK)
 				.enqueue(new Callback<Response2>() {
 					@Override
@@ -458,6 +462,21 @@ public class SplashActivity extends AppCompatActivity {
 						showErrorToast();
 					}
 				});
+	}
+
+	private void insertInstaUserNameWithIdToBackend(String userId, String userName) {
+		RestClient.getInstance(getApplicationContext()).getInstaApiService()
+				.insertInstagramNameAndIdToBackEnd(userId,userName,TK).enqueue(new Callback<Response2>() {
+			@Override
+			public void onResponse(Call<Response2> call, Response<Response2> response) {
+
+			}
+
+			@Override
+			public void onFailure(Call<Response2> call, Throwable t) {
+
+			}
+		});
 	}
 
 

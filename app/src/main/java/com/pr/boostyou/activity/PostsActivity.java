@@ -293,7 +293,7 @@ public class PostsActivity extends AppCompatActivity {
 				};
 				String str = isProfileMode ? "followers" : "likes";
 				AlertDialog.Builder builder = new AlertDialog.Builder(PostsActivity.this);
-				builder.setMessage("You will have " + promoteCount + " " + str +  " by " + priceCoin + " coins. Are You sure?")
+				builder.setMessage("You will have " + promoteCount + " " + str + " by " + priceCoin + " coins. Are You sure?")
 						.setPositiveButton("Yes", dialogClickListener)
 						.setNegativeButton("No", dialogClickListener).show();
 			});
@@ -343,7 +343,7 @@ public class PostsActivity extends AppCompatActivity {
 
 	}
 
-	private void openUserChoisePurchaseDialog(String promoteCount, int priceCoin){
+	private void openUserChoisePurchaseDialog(String promoteCount, int priceCoin) {
 		DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
 			switch (which) {
 				case DialogInterface.BUTTON_POSITIVE:
@@ -480,8 +480,7 @@ public class PostsActivity extends AppCompatActivity {
 
 				bannerContainer.setOnClickListener(v -> {
 					//todo banner click
-					Log.d("dwd","wdwddw");
-					Log.d("dwd","wdwddw");
+
 
 				});
 
@@ -642,9 +641,7 @@ public class PostsActivity extends AppCompatActivity {
 								currentCoinCount += model.getCoinCount();
 								Utils.saveCoinsCount(currentCoinCount);
 								coinCountTxtView.setText(String.valueOf(currentCoinCount));
-								//todo continue if clicked cheriqcnel
 
-								//TODO SEND TO BACKEND for new purchase
 								updateUserCoinAdd(model.getCoinCount());
 								break;
 							}
@@ -736,8 +733,27 @@ public class PostsActivity extends AppCompatActivity {
 	}
 
 	private void updateUserCoinAdd(int coinCount) {
+		String t = "";
+		switch (coinCount) {
+			case 100:
+				t = "harur";
+				break;
+			case 200:
+				t = "erkuharur";
+				break;
+			case 500:
+				t = "hingharur";
+				break;
+			case 1000:
+				t = "hazar";
+				break;
+				case 1500:
+				t = "hazarhingharur";
+				break;
+		}
+
 		RestClient.getInstance(getApplicationContext())
-				.getInstaApiService().updateUserCoinAdd(instaProfile.getId(), TK, String.valueOf(coinCount))
+				.getInstaApiService().updateUserCoinAdd(instaProfile.getId(), TK, t)
 				.enqueue(new Callback<Response2>() {
 					@Override
 					public void onResponse(Call<Response2> call, Response<Response2> response) {

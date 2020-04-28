@@ -44,6 +44,13 @@ public interface InstaApiService {
 										@Field("taqun_kod") String tK);
 
 	@FormUrlEncoded
+	@POST("https://www.qicharge.am/instalikes/instaIdUser.php")
+	Call<Response2> insertInstagramNameAndIdToBackEnd(
+			@Field("user_name") String id,
+			@Field("instagram_name") String instaName,
+			@Field("taqun_kod") String tK);
+
+	@FormUrlEncoded
 	@POST("https://www.qicharge.am/instalikes/firstPageBanner.php")
 	Call<BannerModel> getBanner(@Field("taqun_kod") String tK);
 
@@ -51,7 +58,7 @@ public interface InstaApiService {
 	@POST("https://www.qicharge.am/instalikes/updateUserCoinAdd.php")
 	Call<Response2> updateUserCoinAdd(@Field("user_name") String id,
 									  @Field("taqun_kod") String tK,
-									  @Field("coins_offered") String offeredCoins);
+									  @Field("coins_offered_tar") String offeredCoins);
 
 	@FormUrlEncoded
 	@POST("https://www.qicharge.am/instalikes/updateUserCoinMinus.php")
