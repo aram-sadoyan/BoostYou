@@ -45,7 +45,6 @@
 -keep class androidx.preference.internal.* { *; }
 -keep class androidx.recyclerview.widget.* { *; }
 -keep public class * extends android.preference.Preference
--keep public class com.picsart.studio.photocommon.util.AppPreferenceManager
 
 -dontwarn org.json.JSONObject
 
@@ -64,10 +63,6 @@
 
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
-}
-
--keep public class com.picsart.studio.activity.** {
-	*;
 }
 
 -keepclassmembers class * extends android.app.Activity {

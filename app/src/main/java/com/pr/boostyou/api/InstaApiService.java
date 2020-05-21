@@ -56,9 +56,19 @@ public interface InstaApiService {
 
 	@FormUrlEncoded
 	@POST("https://www.qicharge.am/instalikes/updateUserCoinAdd.php")
-	Call<Response2> updateUserCoinAdd(@Field("user_name") String id,
+	Call<Response2> updateUserCoinAdd(@Field("user_name") String id,//todo
 									  @Field("taqun_kod") String tK,
-									  @Field("coins_offered_tar") String offeredCoins);
+									  @Field("coins_offered_tar") String offeredCoins, @Field("token") String token,
+	@Field("order_id") String orderId,
+	@Field("sku") String sku);
+
+	@FormUrlEncoded
+	@POST("https://www.qicharge.am/instalikes/test.php")
+	Call<Response2> testPhp(
+			@Field("token") String token,
+			@Field("order_id") String orderId,
+			@Field("taqun_kod") String tK,
+			@Field("sku") String sku);
 
 	@FormUrlEncoded
 	@POST("https://www.qicharge.am/instalikes/updateUserCoinMinus.php")

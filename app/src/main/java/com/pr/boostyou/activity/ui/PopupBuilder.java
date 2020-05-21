@@ -120,17 +120,7 @@ public class PopupBuilder {
 		}
 		dialog.setContentView(R.layout.layout_popup);
 		// cache disabled need to implement more safe functionality
-		// PicsartUtils.enableHttpResponseCache(activity);
 
-//		popupLayout = dialog.findViewById(R.id.pop_up_layout);
-//		buttonsLayout = dialog.findViewById(R.id.ll_buttons);
-//		titleTextView = dialog.findViewById(R.id.tv_header);
-//		subtitleTextView = dialog.findViewById(R.id.tv_content);
-		//actionButtonLayout = dialog.findViewById(R.id.btn_positive);
-//		actionButtonText = dialog.findViewById(R.id.btn_positive_tv);
-//		actionButtonSecondText = dialog.findViewById(R.id.btn_positive_second_tv);
-//		secondaryButton = dialog.findViewById(R.id.btn_negative);
-//		customViewContainer = dialog.findViewById(R.id.rl_custom_view);
 		closeButton = dialog.findViewById(R.id.btn_close);
 		purchaseItemContainer = dialog.findViewById(R.id.purchase_item_container);
 		closeButton.setOnClickListener(v -> {
@@ -226,35 +216,6 @@ public class PopupBuilder {
 		return this;
 	}
 
-//	/**
-//	 * Set and init media data.
-//	 *
-//	 * @param mediaData
-//	 */
-//	public PopupBuilder setMediaData(MediaData mediaData) {
-//		int rootViewWidth;
-//		if (!isLandscape) {
-//			rootViewWidth = (int) getDialog().getContext().getResources().getDimension(R.dimen.popup_width);
-//		} else {
-//			rootViewWidth = PicsartUtils.convertDpToPixel(496);
-//			Window window = getDialog().getWindow();
-//			if (window != null) {
-//				window.setLayout(PicsartUtils.convertDpToPixel(496), PicsartUtils.convertDpToPixel(240));
-//			}
-//		}
-//		if (mediaData != null) {
-//			if (!isLandscape) {
-//				mediaView.setMediaData(mediaData, rootViewWidth);
-//				if (mediaData.isFullSize()) {
-//					UiUtils.setImageViewColorFilter(closeButton, Color.WHITE, 0);
-//				}
-//			} else {
-//				mediaView.setMediaData(mediaData, PicsartUtils.convertDpToPixel(192));
-//			}
-//		}
-//		popupLayout.setPadding(0, 0, 0, popupLayout.getPaddingBottom());
-//		return this;
-//	}
 
 	/**
 	 * Set and init media data.
@@ -275,24 +236,6 @@ public class PopupBuilder {
 		titleTextView.setVisibility(visible ? View.VISIBLE : View.GONE);
 	}
 
-//	/**
-//	 * Content text is small text like description
-//	 *
-//	 * @param text
-//	 */
-//	public PopupBuilder setSubtitleText(String text) {
-//		if (!TextUtils.isEmpty(text)) {
-//			setContentVisibility(true);
-//			if (titleTextView.getVisibility() != View.VISIBLE) {
-//				float padding = subtitleTextView.getContext().getResources().getDimension(R.dimen.subtitle_top_padding);
-//				subtitleTextView.setPadding(0, (int) padding, 0, 0);
-//			}
-//			subtitleTextView.setText(text);
-//		} else {
-//			setContentVisibility(false);
-//		}
-//		return this;
-//	}
 
 	public PopupBuilder setFixOrientation(boolean fixOrientation) {
 		this.fixOrientation = fixOrientation;
@@ -328,41 +271,6 @@ public class PopupBuilder {
 		return this;
 	}
 
-//	private PopupBuilder setActionButtonAction(final String action) {
-//		actionButtonLayout.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				dialog.dismiss();
-//				Bundle extras = new Bundle();
-//
-//				if (actionCallback != null) {
-//					//actionCallback.onActionClick(onBoardingComponent.getId(), action, extras);
-//				} else {
-//					if (!TextUtils.isEmpty(action) && activity.get() != null) {
-//						//HookUtils.openHookDirect(activity.get(), Uri.parse(action), extras);
-//					}
-//				}
-//				if (listener != null) {
-//					listener.onButtonClick(true);
-//				}
-//
-//			}
-//		});
-//		return this;
-//	}
-
-//	public PopupBuilder setActionButtonActionListener(@NonNull final OnButtonClickListener clickListener) {
-//		actionButtonLayout.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//
-//					clickListener.onButtonClick(null);
-////				dismiss();
-//
-//			}
-//		});
-//		return this;
-//	}
 
 	public PopupBuilder setSecondaryButtonActionListener(@NonNull final OnButtonClickListener clickListener) {
 		secondaryButton.setOnClickListener(new View.OnClickListener() {

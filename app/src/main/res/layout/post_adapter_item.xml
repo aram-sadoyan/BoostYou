@@ -1,131 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:card_view="http://schemas.android.com/tools"
-	android:id="@+id/postParentContainer"
-	style="@style/CardView.Light"
+	android:id="@+id/likesCommentContainer"
 	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:layout_marginTop="8dp"
-	android:layout_marginBottom="8dp"
-	card_view:cardCornerRadius="4dp">
+	android:layout_height="120dp"
+	android:layout_marginStart="16dp"
+	android:layout_marginLeft="16dp"
+	android:layout_marginTop="4dp"
+	android:layout_marginBottom="4dp"
+	android:visibility="visible"
+	android:background="@drawable/drawable_adapter_item_parent"
+	app:layout_constraintBottom_toBottomOf="parent"
+	app:layout_constraintEnd_toEndOf="parent"
+	app:layout_constraintStart_toStartOf="parent"
+	app:layout_constraintTop_toTopOf="parent">
 
-	<androidx.constraintlayout.widget.ConstraintLayout
+	<ImageView
+		android:id="@+id/likeImgView"
+		android:layout_width="10dp"
+		android:layout_height="10dp"
+		android:layout_marginLeft="4dp"
+		android:layout_marginRight="4dp"
+		android:background="@drawable/love"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toEndOf="@id/likeTxtView"
+		app:layout_constraintTop_toBottomOf="@id/postImgView" />
+
+	<TextView
+		android:id="@+id/likeTxtView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="6dp"
+		android:layout_marginRight="6dp"
+		android:includeFontPadding="false"
+		android:text="..."
+		android:textColor="@color/red_fd"
+		android:textSize="10sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/postImgView" />
+
+	<ImageView
+		android:id="@+id/commentImgView"
+		android:layout_width="10dp"
+		android:layout_height="10dp"
+		android:layout_marginLeft="6dp"
+		android:layout_marginRight="6dp"
+		android:background="@drawable/comment"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/postImgView" />
+
+
+	<TextView
+		android:id="@+id/commentTxtView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="4dp"
+		android:layout_marginRight="4dp"
+		android:includeFontPadding="false"
+		android:text="..."
+		android:textColor="@color/red_fd"
+		android:textSize="10sp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@id/commentImgView"
+		app:layout_constraintTop_toBottomOf="@id/postImgView" />
+
+
+	<com.facebook.drawee.view.SimpleDraweeView
+		xmlns:fresco="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/postImgView"
+		android:layout_width="86dp"
+		android:layout_height="86dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		fresco:roundBottomLeft="true"
+		fresco:roundBottomRight="true"
+		fresco:roundTopRight="true"
+		fresco:roundedCornerRadius="16dp" />
+
+
+
+
+	<ProgressBar
+		android:id="@+id/progressBar"
+		style="?android:attr/progressBarStyleHorizontal"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="4dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginLeft="8dp"
+		android:layout_marginTop="20dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginRight="8dp"
+		android:indeterminate="false"
+		android:max="100"
+		android:progress="50"
+		android:progressDrawable="@drawable/primary_progress_drawable"
+		android:visibility="gone"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="parent" />
 
-		<com.facebook.drawee.view.SimpleDraweeView
-			android:id="@+id/postImgView"
-			android:layout_width="110dp"
-			android:layout_height="110dp"
-			android:background="@color/colorPrimary"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
-
-		<androidx.constraintlayout.widget.ConstraintLayout
-			android:id="@+id/likesCommentContainer"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:visibility="visible"
-			android:paddingTop="6dp"
-			android:paddingBottom="6dp"
-
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/postImgView">
-
-			<ImageView
-				android:id="@+id/likeImgView"
-				android:layout_width="16dp"
-				android:layout_height="16dp"
-				android:layout_marginStart="6dp"
-				android:layout_marginLeft="6dp"
-				android:layout_marginTop="6dp"
-				android:layout_marginBottom="6dp"
-				android:background="@drawable/ic_heart_top"
-				app:layout_constraintBottom_toBottomOf="@id/commentImgView"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="parent" />
-
-			<TextView
-				android:id="@+id/likeTxtView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="4dp"
-				android:layout_marginLeft="4dp"
-				android:layout_marginTop="2dp"
-				android:includeFontPadding="false"
-				android:text="..."
-				android:textColor="@android:color/black"
-				app:layout_constraintStart_toEndOf="@id/likeImgView"
-				app:layout_constraintTop_toTopOf="parent" />
-
-			<ImageView
-				android:id="@+id/commentImgView"
-				android:layout_width="16dp"
-				android:layout_height="16dp"
-				android:layout_marginTop="6dp"
-				android:layout_marginEnd="4dp"
-				android:layout_marginRight="4dp"
-				android:layout_marginBottom="6dp"
-				android:layout_marginStart="6dp"
-				android:layout_marginLeft="6dp"
-				android:background="@drawable/ic_comment"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/likeImgView" />
-
-			<TextView
-				android:id="@+id/commentTxtView"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="4dp"
-				android:layout_marginEnd="6dp"
-				android:layout_marginRight="6dp"
-				android:layout_marginStart="4dp"
-				android:layout_marginLeft="4dp"
-				android:includeFontPadding="false"
-				android:text="..."
-				android:textColor="@android:color/black"
-				app:layout_constraintStart_toEndOf="@id/likeImgView"
-				app:layout_constraintTop_toBottomOf="@id/likeImgView" />
-
-		</androidx.constraintlayout.widget.ConstraintLayout>
-
-		<androidx.constraintlayout.widget.ConstraintLayout
-			android:id="@+id/loadingContainer"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:paddingTop="8dp"
-			android:paddingBottom="8dp"
-			android:visibility="gone"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/postImgView">
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-			<ProgressBar
-				android:id="@+id/progressBar"
-				android:progressDrawable="@drawable/primary_progress_drawable"
-				style="?android:attr/progressBarStyleHorizontal"
-				android:layout_width="match_parent"
-				android:layout_height="4dp"
-				android:layout_marginStart="8dp"
-				android:layout_marginLeft="8dp"
-				android:layout_marginEnd="8dp"
-				android:layout_marginRight="8dp"
-				android:layout_marginTop="20dp"
-				android:indeterminate="false"
-				android:max="100"
-				android:progress="50"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="parent"/>
-		</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-	</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.cardview.widget.CardView>

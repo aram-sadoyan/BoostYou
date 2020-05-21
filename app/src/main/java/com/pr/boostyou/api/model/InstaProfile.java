@@ -122,6 +122,16 @@ public class InstaProfile implements Serializable {
 		@SerializedName("node")
 		private Node node;
 
+		public boolean isSelected() {
+			return selected;
+		}
+
+		public void setSelected(boolean selected) {
+			this.selected = selected;
+		}
+
+		private boolean selected = false;
+
 		public Node getNode() {
 			return node;
 		}

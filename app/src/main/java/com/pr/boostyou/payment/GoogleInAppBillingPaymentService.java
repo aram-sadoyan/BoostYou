@@ -63,10 +63,6 @@ public class GoogleInAppBillingPaymentService extends PaymentServiceAPI implemen
 	public void requestPurchase(Activity activity, String purchaseSku, PaymentPurchaseCallBack callBack) {
 		this.callBack = callBack;
 		List<String> a = new ArrayList<>();
-		//a.add("test_0.0.1_insta_coin");
-		//a.add("get_3_coins");
-		//a.add("newcoin");
-		//a.add("android.test.purchased");
 		a.add(purchaseSku);
 
 		SkuDetailsParams params = SkuDetailsParams
@@ -76,7 +72,6 @@ public class GoogleInAppBillingPaymentService extends PaymentServiceAPI implemen
 				.build();
 		billingClient.querySkuDetailsAsync(params, (billingResult, skuDetailsList) -> {
 			if (skuDetailsList == null) {
-				Log.d("dwd", "sku is null ");
 				return;
 			}
 
@@ -88,7 +83,6 @@ public class GoogleInAppBillingPaymentService extends PaymentServiceAPI implemen
 				billingClient.launchBillingFlow(activity, flowParams);
 			}
 
-			Log.d("dwd", "sku size is " + skuDetailsList.size() + " biloing result " + billingResult.getResponseCode());
 			//Toast.makeText(activity, skuDetailsList.size(), Toast.LENGTH_LONG).show();
 
 			//	Log.d("dwd","dwd " + skuDetailsList.size());
@@ -198,7 +192,6 @@ public class GoogleInAppBillingPaymentService extends PaymentServiceAPI implemen
 	@Override
 	public void onPurchasesUpdated(BillingResult billingResult, @Nullable List<Purchase> purchases) {
 		int responseCode = billingResult.getResponseCode();
-		Log.d("dwd", "onPurchasesUpdated= " + billingResult.getResponseCode() + " responseCode= " + responseCode);
 		if (responseCode == BillingClient.BillingResponseCode.OK
 				&& purchases != null) {
 
@@ -207,7 +200,6 @@ public class GoogleInAppBillingPaymentService extends PaymentServiceAPI implemen
 			callBack.onPaymentCallBack(purchase.getPurchaseToken(), purchase.getSku(), purchase.getOrderId());
 
 		} else {
-			Log.d("dwd", "onPurchasesUpdated= purchaseIsEmpty");
 			clearHistory();
 
 		}
@@ -224,9 +216,7 @@ public class GoogleInAppBillingPaymentService extends PaymentServiceAPI implemen
 			billingClient.consumeAsync(consumeParams, (billingResult, purchaseToken) -> {
 				if (BillingClient.BillingResponseCode.OK == billingResult.getResponseCode()
 						&& purchaseToken != null) {
-					Log.d("dwd", "Succes Response2 code for multiplePurchsse Consume " + billingResult.getResponseCode());
 				} else {
-					Log.d("dwd", "Error Response2 code for multiplePurchsse Consume " + billingResult.getResponseCode());
 
 				}
 			});
@@ -249,11 +239,9 @@ public class GoogleInAppBillingPaymentService extends PaymentServiceAPI implemen
 					public void onConsumeResponse(BillingResult billingResult, String purchaseToken) {
 						if (BillingClient.BillingResponseCode.OK == billingResult.getResponseCode()
 								&& purchaseToken != null) {
-							Log.d("dwd", "onPurchases Updated consumeAsync, purchases token removed: " + purchaseToken);
 							//allowMultiplePurchases(purchases);
 
 						} else {
-							Log.d("dwd", "onPurchases some troubles happened: " + billingResult.getResponseCode());
 
 						}
 					}
@@ -263,18 +251,7 @@ public class GoogleInAppBillingPaymentService extends PaymentServiceAPI implemen
 		}
 	}
 
-//	private fun clearHistory() {
-//		billingClient.queryPurchases(BillingClient.SkuType.INAPP).purchasesList
-//				.forEach {
-//			billingClient.consumeAsync(it.purchaseToken) { responseCode, purchaseToken ->
-//				if (responseCode == BillingClient.BillingResponse.OK && purchaseToken != null) {
-//					println("onPurchases Updated consumeAsync, purchases token removed: $purchaseToken")
-//				} else {
-//					println("onPurchases some troubles happened: $responseCode")
-//				}
-//			}
-//		}
-//	}
+
 
 
 }

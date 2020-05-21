@@ -2,7 +2,6 @@ package com.pr.boostyou.adaper;
 
 import android.app.Activity;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,18 +22,10 @@ import com.pr.boostyou.api.model.BossLikeModel;
 import com.pr.boostyou.api.model.InstaProfile;
 import com.pr.boostyou.util.Utils;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,8 +36,8 @@ import static com.pr.boostyou.util.AppConstants.TK;
 
 public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-	//private List<String> itemUrls = new ArrayList<>();
-	private int selectedPosition = 0;
+	private int selectedPosition = -1;
+	private int lastSelectedPosition = -1;
 	private FrescoLoader frescoLoader;
 	private InstaProfile.EdgeOwnerToTimeLineMedia edgeOwnerToTimeLineMedia = null;
 	private String curentAccesToken = null;
@@ -81,9 +71,9 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 		savedIdTasks = Utils.loadMap("likes");
 	}
 
-	public String getSelectedPermanentLink(int position) {
+	public String getSelectedPermanentLink() {
 		String permaLink = "";
-		permaLink = permaLinkMap.get(position + 1);
+		permaLink = permaLinkMap.get(selectedPosition);
 		return permaLink;
 	}
 
@@ -98,13 +88,27 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 	@Override
 	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder itemViewHolder, int position) {
 		ItemViewHolder holder = (ItemViewHolder) itemViewHolder;
-		if (position == 0 || position > items.size()) {
-			holder.postParentContainer.setVisibility(View.GONE);
-			return;
+//		if (position > items.size()) {
+//			//holder.postParentContainer.setVisibility(View.GONE);
+//			return;
+//		}
+		InstaProfile.Edges item = items.get(position);
+		//holder.postParentContainer.setVisibility(View.VISIBLE);
+		if (selectedPosition == position) {
+			item.setSelected(true);
 		}
-		InstaProfile.Edges item = items.get(position - 1);
-		holder.postParentContainer.setVisibility(View.VISIBLE);
 
+		if (lastSelectedPosition == position){
+			item.setSelected(false);
+		}
+
+		if (item.isSelected()) {
+			holder.likesCommentContainer.setBackground(context.getResources().getDrawable(R.drawable.drawable_adapter_parent_selected));
+		} else {
+			holder.likesCommentContainer.setBackground(context.getResources().getDrawable(R.drawable.drawable_adapter_item_parent));
+		}
+
+		Log.d("dwd", "selectedPos BIND = " + selectedPosition + " adPOSitT " + position);
 		//SHOWing POST IMG?VIDEO
 		if (item.getNode().isVideo()) {
 			frescoLoader.loadWithParams(Uri.parse(item.getNode().getThumbnailUrl()), holder.postImgView, false);
@@ -136,14 +140,14 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 						Utils.saveMap("likes", savedIdTasks);
 
 						holder.likesCommentContainer.setVisibility(View.VISIBLE);
-						holder.loadingView.setVisibility(View.GONE);
+						//	holder.loadingView.setVisibility(View.GONE);
 
 					} else {
 						//showing progress for idTask
 						int completePercent = 100 * completeCount / count;
 						holder.progressBar.setProgress(completePercent);
 						holder.likesCommentContainer.setVisibility(View.GONE);
-						holder.loadingView.setVisibility(View.VISIBLE);
+						//	holder.loadingView.setVisibility(View.VISIBLE);
 					}
 
 				}
@@ -154,7 +158,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 				//showing progress for idTask
 
 				holder.likesCommentContainer.setVisibility(View.VISIBLE);
-				holder.loadingView.setVisibility(View.GONE);
+				//	holder.loadingView.setVisibility(View.GONE);
 
 			}
 		});
@@ -163,7 +167,17 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 	@Override
 	public int getItemCount() {
-		return items.size() + 2;
+		return items.size();
+	}
+
+	public void unselectAllItemsAndNotify() {
+		for (InstaProfile.Edges item : items){
+			item.setSelected(false);
+		}
+		notifyDataSetChanged();
+		lastSelectedPosition = -1;
+		selectedPosition = -2;
+
 	}
 
 
@@ -171,9 +185,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 		private SimpleDraweeView postImgView;
 		private TextView likeTxtView;
 		private TextView commentTxtView;
-		private CardView postParentContainer = null;
 		private ConstraintLayout likesCommentContainer = null;
-		private ConstraintLayout loadingView = null;
 		private ProgressBar progressBar = null;
 
 
@@ -181,11 +193,9 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 			super(view);
 			itemView.setOnClickListener(this);
 			postImgView = view.findViewById(R.id.postImgView);
-			postParentContainer = view.findViewById(R.id.postParentContainer);
 			likeTxtView = view.findViewById(R.id.likeTxtView);
 			commentTxtView = view.findViewById(R.id.commentTxtView);
 			likesCommentContainer = view.findViewById(R.id.likesCommentContainer);
-			loadingView = view.findViewById(R.id.loadingContainer);
 			progressBar = view.findViewById(R.id.progressBar);
 		}
 
@@ -197,11 +207,13 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 			if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
 			if (selectedPosition != getAdapterPosition()) {
 				int adapterPosition = getAdapterPosition();
-				//listener.onItemClick(2);
+				listener.onItemClick(getAdapterPosition());
+				lastSelectedPosition = selectedPosition;
+				selectedPosition = getAdapterPosition();
 			}
-//			notifyItemChanged(selectedPosition);
-//			selectedPosition = getAdapterPosition();
-//			notifyItemChanged(selectedPosition);
+
+			notifyItemChanged(selectedPosition);
+			notifyItemChanged(lastSelectedPosition);
 		}
 	}
 }

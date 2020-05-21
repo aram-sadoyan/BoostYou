@@ -1,50 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:card_view="http://schemas.android.com/tools"
-	style="@style/CardView.Light"
-	android:foreground="?android:attr/selectableItemBackground"
-	android:clickable="true"
-	android:focusable="true"
-	card_view:cardCornerRadius="4dp"
-	android:layout_marginStart="8dp"
-	android:layout_marginEnd="8dp"
-	android:layout_marginBottom="4dp"
-	android:layout_marginTop="4dp">
+	android:id="@+id/offer_card_item_parent"
+	android:layout_width="match_parent"
+	android:layout_height="42dp"
+	android:layout_marginLeft="16dp"
+	android:layout_marginRight="16dp"
+	android:layout_marginBottom="6dp"
+	android:layout_marginTop="6dp">
 
+	<LinearLayout
+		android:layout_width="120dp"
+		android:layout_height="match_parent"
+		android:orientation="horizontal"
+		android:paddingLeft="16dp"
+		android:paddingRight="16dp"
+		android:background="@drawable/drawable_offer_mini_fill"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		android:gravity="center">
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		android:layout_width="match_parent"
-		android:layout_height="48dp">
+	<TextView
+		android:id="@+id/offerTxtView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="10"
+		android:textStyle="bold"
+		android:textSize="24sp"
+		android:textColor="@color/red_1d"
+		android:includeFontPadding="false" />
 
-		<TextView
-			android:id="@+id/offerTxtView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="10 likes"
-			android:textStyle="bold"
-			android:textSize="24sp"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			android:layout_marginStart="12dp"
-			android:layout_marginLeft="12dp" />
+	<com.facebook.drawee.view.SimpleDraweeView
+		android:id="@+id/icLeftView"
+		android:layout_width="22dp"
+		android:layout_height="22dp"
+		android:layout_marginLeft="12dp"
+		android:layout_marginStart="12dp"
+		app:actualImageScaleType="centerCrop"
+		android:background="@drawable/love" />
 
-		<ImageView
-			android:id="@+id/icLeftView"
-			android:layout_width="24dp"
-			android:layout_height="24dp"
-			android:layout_marginEnd="32dp"
-			android:layout_marginRight="32dp"
-			android:layout_marginLeft="12dp"
-			android:layout_marginStart="12dp"
-			android:background="@drawable/ic_heart"
-			app:layout_constraintStart_toEndOf="@id/offerTxtView"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintTop_toTopOf="parent"/>
+		</LinearLayout>
 
 
 		<TextView
@@ -52,6 +49,8 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="20 coin"
+			android:textSize="22sp"
+			android:textColor="@android:color/white"
 			app:layout_constraintEnd_toStartOf="@id/bottomIcCoin"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
@@ -64,11 +63,10 @@
 			android:layout_height="24dp"
 			android:layout_marginEnd="32dp"
 			android:layout_marginRight="32dp"
-			android:src="@drawable/ic_coins"
+			android:src="@drawable/coin"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintTop_toTopOf="parent"/>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.cardview.widget.CardView>

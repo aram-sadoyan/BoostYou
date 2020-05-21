@@ -4,8 +4,8 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -13,13 +13,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -40,7 +42,6 @@ import com.pr.boostyou.AppSettings;
 import com.pr.boostyou.R;
 import com.pr.boostyou.activity.ui.FrescoLoader;
 import com.pr.boostyou.activity.ui.PopupBuilder;
-import com.pr.boostyou.activity.ui.ZoomCenterCardLayoutManager;
 import com.pr.boostyou.adaper.CustomProgressDialog;
 import com.pr.boostyou.adaper.PostAdapter;
 import com.pr.boostyou.adaper.PurchaseListPopupListener;
@@ -94,7 +95,10 @@ public class PostsActivity extends AppCompatActivity {
 	SimpleDraweeView icDoneView = null;
 	SimpleDraweeView logOutIcView = null;
 	ProgressBar avatarLoadingIdTaskProgressBar = null;
+	private ConstraintLayout appBarConstrLayout = null;
+	//remove this
 	private View dotView = null;
+	private SimpleDraweeView avatarSelectedImg = null;
 	private boolean isProfileMode = true;
 	private BannerModel bannerModel = null;
 
@@ -118,6 +122,7 @@ public class PostsActivity extends AppCompatActivity {
 
 	private void findViews() {
 		horizontalRecView = findViewById(R.id.horizontalRecView);
+		appBarConstrLayout = findViewById(R.id.appBarContainer);
 		offerContainer = findViewById(R.id.offerContainer);
 		avatarImgView = findViewById(R.id.avatarImgView);
 		addCoinTxtView = findViewById(R.id.addCoinTxtView);
@@ -125,6 +130,7 @@ public class PostsActivity extends AppCompatActivity {
 		bannerContainer = findViewById(R.id.bannerContainer);
 		bannerImgView = findViewById(R.id.bannerImgView);
 		dotView = findViewById(R.id.dotView);
+		avatarSelectedImg = findViewById(R.id.avatar_selected_img);
 		bottomImgView = findViewById(R.id.bottomImgView);
 		noPostText = findViewById(R.id.noPostText);
 		coinCountTxtView = findViewById(R.id.coinCountTxtView);
@@ -147,6 +153,7 @@ public class PostsActivity extends AppCompatActivity {
 		progressDialog.setCancelable(false);
 
 		findViews();
+		setUpAppBarGradient();
 		setUpBannerAd();
 
 		PromotionModel likePromotions = null;
@@ -223,6 +230,15 @@ public class PostsActivity extends AppCompatActivity {
 
 	}
 
+	private void setUpAppBarGradient() {
+		int[] gradientColors = new int[]{Color.parseColor("#843AB5"),
+				Color.parseColor("#D0327A")};
+
+		appBarConstrLayout.setBackground(new GradientDrawable(
+				GradientDrawable.Orientation.LEFT_RIGHT,
+				gradientColors));
+	}
+
 	private void setToolbarTexts(String userName) {
 		if (ourUser != null) {
 			coinCountTxtView.setText(String.valueOf(Utils.getCoinsCount()));
@@ -255,12 +271,18 @@ public class PostsActivity extends AppCompatActivity {
 		if (isProfileMode) {
 			//PROFILE CONFIG LIST
 			dotView.setSelected(true);
+			avatarSelectedImg.setVisibility(View.VISIBLE);
 			offerCardItems = followerCardPromotions;
-			resId = R.drawable.follower;
+			resId = R.drawable.follower_it;
+			if (postAdapter != null){
+                 postAdapter.unselectAllItemsAndNotify();
+			}
 		} else {
 			//POST CONFIG LIST
 			dotView.setSelected(false);
+			avatarSelectedImg.setVisibility(View.GONE);
 			offerCardItems = likeCardPromotions;
+
 		}
 
 		for (int i = 0; i < offerCardItems.size(); i++) {
@@ -268,7 +290,9 @@ public class PostsActivity extends AppCompatActivity {
 			OfferCardItem offerCardItem = offerCardItems.get(i);
 			TextView offerTxtView = v.findViewById(R.id.offerTxtView);
 			TextView costCoinTxtView = v.findViewById(R.id.costCoinTxtView);
-			ImageView leftIcView = v.findViewById(R.id.icLeftView);
+			SimpleDraweeView leftIcView = v.findViewById(R.id.icLeftView);
+			ConstraintLayout itemParent = v.findViewById(R.id.offer_card_item_parent);
+			setUpGradientWithCorner(itemParent);
 			leftIcView.setBackgroundResource(resId);
 			offerTxtView.setText(offerCardItem.getOfferCount());
 			costCoinTxtView.setText(String.valueOf(offerCardItem.getCostCoinCount()));
@@ -308,7 +332,7 @@ public class PostsActivity extends AppCompatActivity {
 		}
 		String currentPermalink = isProfileMode ?
 				"https://www.instagram.com/" + userName
-				: postAdapter.getSelectedPermanentLink(selectedAdapterPosition);
+				: postAdapter.getSelectedPermanentLink();
 		final int taskType = isProfileMode ? 3 : 1;
 
 		if (Utils.getCoinsCount() < priceCoin) {
@@ -513,19 +537,13 @@ public class PostsActivity extends AppCompatActivity {
 				});
 		horizontalRecView.setAdapter(postAdapter);
 
-		horizontalRecView.setLayoutManager(new ZoomCenterCardLayoutManager(getApplicationContext(),
+		horizontalRecView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
 				LinearLayoutManager.HORIZONTAL, false));
 		horizontalRecView.setItemViewCacheSize(10);
 		horizontalRecView.setDrawingCacheEnabled(true);
 		horizontalRecView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 		horizontalRecView.setHasFixedSize(true);
 		horizontalRecView.setOnFlingListener(null);
-		PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
-		pagerSnapHelper.attachToRecyclerView(horizontalRecView);
-
-		final Handler handler = new Handler();
-		handler.postDelayed(() -> horizontalRecView.smoothScrollToPosition(2), 500);
-
 
 		horizontalRecView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 			@Override
@@ -537,7 +555,7 @@ public class PostsActivity extends AppCompatActivity {
 				}
 
 				if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-					ZoomCenterCardLayoutManager layoutManager = (ZoomCenterCardLayoutManager) recyclerView.getLayoutManager();
+					LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
 					if (layoutManager == null) {
 						return;
 					}
@@ -551,9 +569,7 @@ public class PostsActivity extends AppCompatActivity {
 				super.onScrolled(recyclerView, dx, dy);
 			}
 		});
-
 		selectedAdapterPosition = 0;
-
 	}
 
 	private void getAndSaveLikePromotion() {
@@ -634,6 +650,19 @@ public class PostsActivity extends AppCompatActivity {
 					@Override
 					public void onPaymentCallBack(String purchaseToken, String sku, String orderId) {
 
+						RestClient.getInstance(getApplicationContext()).getInstaApiService()
+								.testPhp(purchaseToken,orderId,TK,sku).enqueue(new Callback<Response2>() {
+							@Override
+							public void onResponse(Call<Response2> call, Response<Response2> response) {
+
+							}
+
+							@Override
+							public void onFailure(Call<Response2> call, Throwable t) {
+
+							}
+						});
+
 						List<PurchaseModel> currentPurchaseList = AppSettings.getInstance().getPurchaseModels();
 						for (PurchaseModel model : currentPurchaseList) {
 							if (sku.equals(model.getSdkName())) {
@@ -642,7 +671,7 @@ public class PostsActivity extends AppCompatActivity {
 								Utils.saveCoinsCount(currentCoinCount);
 								coinCountTxtView.setText(String.valueOf(currentCoinCount));
 
-								updateUserCoinAdd(model.getCoinCount());
+								updateUserCoinAdd(model.getCoinCount(),purchaseToken,orderId,sku);
 								break;
 							}
 						}
@@ -732,7 +761,7 @@ public class PostsActivity extends AppCompatActivity {
 
 	}
 
-	private void updateUserCoinAdd(int coinCount) {
+	private void updateUserCoinAdd(int coinCount, String purchaseToken, String orderId, String sku) {
 		String t = "";
 		switch (coinCount) {
 			case 100:
@@ -753,7 +782,7 @@ public class PostsActivity extends AppCompatActivity {
 		}
 
 		RestClient.getInstance(getApplicationContext())
-				.getInstaApiService().updateUserCoinAdd(instaProfile.getId(), TK, t)
+				.getInstaApiService().updateUserCoinAdd(instaProfile.getId(), TK, t,purchaseToken,orderId,sku)
 				.enqueue(new Callback<Response2>() {
 					@Override
 					public void onResponse(Call<Response2> call, Response<Response2> response) {
@@ -848,5 +877,24 @@ public class PostsActivity extends AppCompatActivity {
 
 	public interface OnItemClickListener {
 		void onItemClick(int adapterPosition);
+	}
+
+
+	public void setUpGradientWithCorner(ConstraintLayout itemParent) {
+		int[] gradientColors = new int[]{Color.parseColor("#843AB5"),
+				Color.parseColor("#D0327A")};
+
+		GradientDrawable gradientDrawable = new GradientDrawable(
+				GradientDrawable.Orientation.LEFT_RIGHT,
+				gradientColors);
+		gradientDrawable.setCornerRadius(convertDpToPixel(12));
+
+		itemParent.setBackground(gradientDrawable);
+
+	}
+
+	public static int convertDpToPixel(float dp) {
+		DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+		return (int) (dp * metrics.density);
 	}
 }

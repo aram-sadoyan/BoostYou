@@ -11,4 +11,13 @@
 	<color name="purple_light">#e6d0ff</color>
 	<color name="white_cream">#FFF2E6</color>
 
+	<color name="red_fd">#E2306C</color>
+	<color name="red_1d">#FD1D1D</color>
+	<color name="yel_fc">#FCAF45</color>
+	<color name="yel_ff">#FFB600</color>
+	<color name="black_22">#222222</color>
+	<color name="cream_ff">#FFF1CB</color>
+	<color name="blue_58">#5851D7</color>
+
+
 </resources>

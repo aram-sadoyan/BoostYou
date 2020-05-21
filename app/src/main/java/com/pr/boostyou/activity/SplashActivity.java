@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -49,11 +50,12 @@ import static com.pr.boostyou.util.AppConstants.TK;
 public class SplashActivity extends AppCompatActivity {
 
 	private InstaProfile instaProfile;
-	private Button startBtnView = null;
+	private TextView startBtnView = null;
 	private InterstitialAd interstitialAd;
 	private LinearLayout bottomAdContainer = null;
 	private LinearLayout topAdContainer = null;
-	private SimpleDraweeView splashIcView = null;
+	//private SimpleDraweeView splashIcView = null;
+	private LinearLayout goBtnContainer = null;
 	private TextView termsConditionTxtView = null;
 	private TextView editTextuserName = null;
 	private TextView titleTxtView = null;
@@ -70,15 +72,17 @@ public class SplashActivity extends AppCompatActivity {
 
 	private void findViews() {
 		startBtnView = findViewById(R.id.startBtnView);
+		startBtnView.setPaintFlags(startBtnView.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
 		bottomAdContainer = findViewById(R.id.bottomAdContainer);
 		topAdContainer = findViewById(R.id.topAdContainer);
 		termsConditionTxtView = findViewById(R.id.termsConditionTxtView);
 		editTextuserName = findViewById(R.id.editTextView);
-		editTextuserName.setHint("@username");
+		editTextuserName.setHint("e.g @user_name");
 		progressBar = findViewById(R.id.progress_bar);
-		splashIcView = findViewById(R.id.splashIcView);
+		//splashIcView = findViewById(R.id.splashIcView);
 		parentView = findViewById(R.id.parentView);
 		titleTxtView = findViewById(R.id.titleTxtView);
+		goBtnContainer = findViewById(R.id.go_btn_container);
 	}
 
 	@Override
@@ -103,6 +107,7 @@ public class SplashActivity extends AppCompatActivity {
 		termsConditionTxtView.setMovementMethod(LinkMovementMethod.getInstance());
 
 		startBtnView.setOnClickListener(startBtnClickListener);
+		goBtnContainer.setOnClickListener(startBtnClickListener);
 		parentView.setOnClickListener(v -> hideKeyboard());
 
 		if (Utils.isConnected(getApplicationContext())) {
@@ -161,17 +166,15 @@ public class SplashActivity extends AppCompatActivity {
 
 	private void showMainViews() {
 		editTextuserName.setVisibility(View.VISIBLE);
-		startBtnView.setVisibility(View.VISIBLE);
-		splashIcView.setVisibility(View.VISIBLE);
 		titleTxtView.setVisibility(View.VISIBLE);
+		goBtnContainer.setVisibility(View.VISIBLE);
 	}
 
 
 	private void hideMainViews() {
 		editTextuserName.setVisibility(View.GONE);
-		startBtnView.setVisibility(View.GONE);
-		splashIcView.setVisibility(View.GONE);
 		titleTxtView.setVisibility(View.GONE);
+		goBtnContainer.setVisibility(View.GONE);
 	}
 
 	private void setUpBannerAd() {
